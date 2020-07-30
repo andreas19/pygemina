@@ -1,0 +1,368 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>API Reference &#8212; PyGemina 0.1.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="License" href="license.html" />
+    <link rel="prev" title="Overview" href="overview.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">PyGemina</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="overview.html" title="previous chapter">Overview</a></li>
+      <li>Next: <a href="license.html" title="next chapter">License</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-gemina">
+<span id="api-reference"></span><h1>API Reference<a class="headerlink" href="#module-gemina" title="Permalink to this headline">¶</a></h1>
+<p>Reference implementation of the <a class="reference external" href="https://github.com/andreas19/gemina-spec">Gemina specification</a>.</p>
+<p>For more details see the section
+<a class="reference external" href="https://github.com/andreas19/gemina-spec#description">Description</a>.</p>
+<p>The initialization vector for CBC, the keys, and the salt for HMAC
+are created with <a class="reference external" href="https://docs.python.org/3/library/os.html#os.urandom" title="(in Python v3.8)"><code class="xref py py-func docutils literal notranslate"><span class="pre">os.urandom()</span></code></a>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">key</span></code> argument for the functions <a class="reference internal" href="#gemina.encrypt_with_key" title="gemina.encrypt_with_key"><code class="xref py py-func docutils literal notranslate"><span class="pre">encrypt_with_key()</span></code></a>,
+<a class="reference internal" href="#gemina.decrypt_with_key" title="gemina.decrypt_with_key"><code class="xref py py-func docutils literal notranslate"><span class="pre">decrypt_with_key()</span></code></a>, and <a class="reference internal" href="#gemina.verify_with_key" title="gemina.verify_with_key"><code class="xref py py-func docutils literal notranslate"><span class="pre">verify_with_key()</span></code></a> should be created
+with <a class="reference internal" href="#gemina.create_secret_key" title="gemina.create_secret_key"><code class="xref py py-func docutils literal notranslate"><span class="pre">create_secret_key()</span></code></a>.</p>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gemina.DecryptError" title="gemina.DecryptError"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DecryptError</span></code></a></p></td>
+<td><p>Raised if data could not be decrypted.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#gemina.Version" title="gemina.Version"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Version</span></code></a></p></td>
+<td><p>Version enum.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gemina.create_secret_key" title="gemina.create_secret_key"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_secret_key</span></code></a></p></td>
+<td><p>Create a secret key.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#gemina.decrypt_with_key" title="gemina.decrypt_with_key"><code class="xref py py-obj docutils literal notranslate"><span class="pre">decrypt_with_key</span></code></a></p></td>
+<td><p>Decrypt data using a secret key.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gemina.decrypt_with_password" title="gemina.decrypt_with_password"><code class="xref py py-obj docutils literal notranslate"><span class="pre">decrypt_with_password</span></code></a></p></td>
+<td><p>Decrypt data using a password.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#gemina.encrypt_with_key" title="gemina.encrypt_with_key"><code class="xref py py-obj docutils literal notranslate"><span class="pre">encrypt_with_key</span></code></a></p></td>
+<td><p>Encrypt data using a secret key.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gemina.encrypt_with_password" title="gemina.encrypt_with_password"><code class="xref py py-obj docutils literal notranslate"><span class="pre">encrypt_with_password</span></code></a></p></td>
+<td><p>Encrypt data using a password.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#gemina.verify_with_key" title="gemina.verify_with_key"><code class="xref py py-obj docutils literal notranslate"><span class="pre">verify_with_key</span></code></a></p></td>
+<td><p>Verify the encrypted data.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#gemina.verify_with_password" title="gemina.verify_with_password"><code class="xref py py-obj docutils literal notranslate"><span class="pre">verify_with_password</span></code></a></p></td>
+<td><p>Verify the encrypted data.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="gemina.Version">
+<em class="property">class </em><code class="sig-prename descclassname">gemina.</code><code class="sig-name descname">Version</code><a class="reference internal" href="_modules/gemina.html#Version"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemina.Version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Version enum.</p>
+<dl class="py attribute">
+<dt id="gemina.Version.V1">
+<code class="sig-name descname">V1</code><em class="property"> = b'\x8a'</em><a class="headerlink" href="#gemina.Version.V1" title="Permalink to this definition">¶</a></dt>
+<dd><p>version 1</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="gemina.Version.V2">
+<code class="sig-name descname">V2</code><em class="property"> = b'\x8b'</em><a class="headerlink" href="#gemina.Version.V2" title="Permalink to this definition">¶</a></dt>
+<dd><p>version 2</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="gemina.Version.V3">
+<code class="sig-name descname">V3</code><em class="property"> = b'\x8c'</em><a class="headerlink" href="#gemina.Version.V3" title="Permalink to this definition">¶</a></dt>
+<dd><p>version 3</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="gemina.Version.V4">
+<code class="sig-name descname">V4</code><em class="property"> = b'\x8d'</em><a class="headerlink" href="#gemina.Version.V4" title="Permalink to this definition">¶</a></dt>
+<dd><p>version 4</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt id="gemina.DecryptError">
+<em class="property">exception </em><code class="sig-prename descclassname">gemina.</code><code class="sig-name descname">DecryptError</code><a class="reference internal" href="_modules/gemina.html#DecryptError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemina.DecryptError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Raised if data could not be decrypted.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="gemina.create_secret_key">
+<code class="sig-prename descclassname">gemina.</code><code class="sig-name descname">create_secret_key</code><span class="sig-paren">(</span><em class="sig-param">*</em>, <em class="sig-param">version=&lt;Version.V1&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemina.html#create_secret_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemina.create_secret_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a secret key.</p>
+<p>It can be used with the functions <a class="reference internal" href="#gemina.encrypt_with_key" title="gemina.encrypt_with_key"><code class="xref py py-func docutils literal notranslate"><span class="pre">encrypt_with_key()</span></code></a>,
+<a class="reference internal" href="#gemina.decrypt_with_key" title="gemina.decrypt_with_key"><code class="xref py py-func docutils literal notranslate"><span class="pre">decrypt_with_key()</span></code></a>, and <a class="reference internal" href="#gemina.verify_with_key" title="gemina.verify_with_key"><code class="xref py py-func docutils literal notranslate"><span class="pre">verify_with_key()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>secret key</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.8)">bytes</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="gemina.encrypt_with_password">
+<code class="sig-prename descclassname">gemina.</code><code class="sig-name descname">encrypt_with_password</code><span class="sig-paren">(</span><em class="sig-param">password</em>, <em class="sig-param">data</em>, <em class="sig-param">*</em>, <em class="sig-param">version=&lt;Version.V1&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemina.html#encrypt_with_password"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemina.encrypt_with_password" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encrypt data using a password.</p>
+<p>The data will be encrypted with a key derived from the
+password and signed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>password</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.8)"><em>bytes</em></a>) – the password</p></li>
+<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.8)"><em>bytes</em></a>) – the data to encrypt</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>encrypted data</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.8)">bytes</a></p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.8)"><strong>TypeError</strong></a> – if <code class="docutils literal notranslate"><span class="pre">password</span></code> or <code class="docutils literal notranslate"><span class="pre">data</span></code> are not <code class="docutils literal notranslate"><span class="pre">bytes</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="gemina.decrypt_with_password">
+<code class="sig-prename descclassname">gemina.</code><code class="sig-name descname">decrypt_with_password</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">password</span></em>, <em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemina.html#decrypt_with_password"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemina.decrypt_with_password" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decrypt data using a password.</p>
+<p>The data must have been encrypted with <a class="reference internal" href="#gemina.encrypt_with_password" title="gemina.encrypt_with_password"><code class="xref py py-func docutils literal notranslate"><span class="pre">encrypt_with_password()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>password</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.8)"><em>bytes</em></a>) – the password</p></li>
+<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.8)"><em>bytes</em></a>) – the encrypted data</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>decrypted data</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.8)">bytes</a></p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.8)"><strong>TypeError</strong></a> – if <code class="docutils literal notranslate"><span class="pre">password</span></code> or <code class="docutils literal notranslate"><span class="pre">data</span></code> are not <code class="docutils literal notranslate"><span class="pre">bytes</span></code></p></li>
+<li><p><a class="reference internal" href="#gemina.DecryptError" title="gemina.DecryptError"><strong>DecryptError</strong></a> – if data could not be decrypted</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="gemina.verify_with_password">
+<code class="sig-prename descclassname">gemina.</code><code class="sig-name descname">verify_with_password</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">password</span></em>, <em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemina.html#verify_with_password"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemina.verify_with_password" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verify the encrypted data.</p>
+<p>This function verifies the authenticity and the integrity of the data
+with the key derived from the password. This is also done during decryption.</p>
+<p>The data must have been encrypted with <a class="reference internal" href="#gemina.encrypt_with_password" title="gemina.encrypt_with_password"><code class="xref py py-func docutils literal notranslate"><span class="pre">encrypt_with_password()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>password</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.8)"><em>bytes</em></a>) – the password</p></li>
+<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.8)"><em>bytes</em></a>) – the encrypted data</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if password, authenticity and integrity are okay</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a></p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.8)"><strong>TypeError</strong></a> – if <code class="docutils literal notranslate"><span class="pre">password</span></code> or <code class="docutils literal notranslate"><span class="pre">data</span></code> are not <code class="docutils literal notranslate"><span class="pre">bytes</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="gemina.encrypt_with_key">
+<code class="sig-prename descclassname">gemina.</code><code class="sig-name descname">encrypt_with_key</code><span class="sig-paren">(</span><em class="sig-param">key</em>, <em class="sig-param">data</em>, <em class="sig-param">*</em>, <em class="sig-param">version=&lt;Version.V1&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemina.html#encrypt_with_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemina.encrypt_with_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encrypt data using a secret key.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.8)"><em>bytes</em></a>) – the secret key</p></li>
+<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.8)"><em>bytes</em></a>) – the data to encrypt</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>encrypted data</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.8)">bytes</a></p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.8)"><strong>TypeError</strong></a> – if <code class="docutils literal notranslate"><span class="pre">key</span></code> or <code class="docutils literal notranslate"><span class="pre">data</span></code> are not <code class="docutils literal notranslate"><span class="pre">bytes</span></code></p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.8)"><strong>ValueError</strong></a> – if size of <code class="docutils literal notranslate"><span class="pre">key</span></code> is not correct</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="gemina.decrypt_with_key">
+<code class="sig-prename descclassname">gemina.</code><code class="sig-name descname">decrypt_with_key</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em>, <em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemina.html#decrypt_with_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemina.decrypt_with_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decrypt data using a secret key.</p>
+<p>The data must have been encrypted with <a class="reference internal" href="#gemina.encrypt_with_key" title="gemina.encrypt_with_key"><code class="xref py py-func docutils literal notranslate"><span class="pre">encrypt_with_key()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.8)"><em>bytes</em></a>) – the secret key</p></li>
+<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.8)"><em>bytes</em></a>) – the encrypted data</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>decrypted data</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.8)">bytes</a></p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.8)"><strong>TypeError</strong></a> – if <code class="docutils literal notranslate"><span class="pre">key</span></code> or <code class="docutils literal notranslate"><span class="pre">data</span></code> are not <code class="docutils literal notranslate"><span class="pre">bytes</span></code></p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.8)"><strong>ValueError</strong></a> – if size of <code class="docutils literal notranslate"><span class="pre">key</span></code> is not correct</p></li>
+<li><p><a class="reference internal" href="#gemina.DecryptError" title="gemina.DecryptError"><strong>DecryptError</strong></a> – if data could not be decrypted</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="gemina.verify_with_key">
+<code class="sig-prename descclassname">gemina.</code><code class="sig-name descname">verify_with_key</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em>, <em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/gemina.html#verify_with_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gemina.verify_with_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verify the encrypted data.</p>
+<p>This function verifies the authenticity and the integrity of the data
+with the given key. This is also done during decryption.</p>
+<p>The data must have been encrypted with <a class="reference internal" href="#gemina.encrypt_with_key" title="gemina.encrypt_with_key"><code class="xref py py-func docutils literal notranslate"><span class="pre">encrypt_with_key()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.8)"><em>bytes</em></a>) – the secret key</p></li>
+<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.8)"><em>bytes</em></a>) – the encrypted data</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if secret key, authenticity and integrity are okay</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a></p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.8)"><strong>TypeError</strong></a> – if <code class="docutils literal notranslate"><span class="pre">key</span></code> or <code class="docutils literal notranslate"><span class="pre">data</span></code> are not <code class="docutils literal notranslate"><span class="pre">bytes</span></code></p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.8)"><strong>ValueError</strong></a> – if size of <code class="docutils literal notranslate"><span class="pre">key</span></code> is not correct</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2020, Andreas Suhre.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.0.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

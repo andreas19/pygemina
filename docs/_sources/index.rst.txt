@@ -1,0 +1,22 @@
+PyGemina |version|
+==================
+
+
+Contents
+--------
+
+
+.. toctree::
+   :maxdepth: 2
+
+   overview
+   mod_gemina
+   license
+
+
+
+Indices and tables
+------------------
+
+* :ref:`genindex`
+* :ref:`search`
