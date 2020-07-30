@@ -10,7 +10,7 @@ Contents
    :maxdepth: 2
 
    overview
-   mod_gemina
+   mod_api
    license
 
 
