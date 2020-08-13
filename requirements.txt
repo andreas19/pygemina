@@ -1,2 +1,2 @@
 cryptography >=2.6.1
-salmagundi >=0.13.0
+salmagundi >=0.14.0

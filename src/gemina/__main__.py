@@ -13,12 +13,12 @@ Commands:
 
 Argument:
   INPUT    password or keyfile
-           if omitted it will be asked for (password without echoing)
+           if omitted it will be asked for (password w/o echoing)
 
 Options:
   -i INFILE --input   INFILE   input file
   -o OUTFILE --output OUTFILE  output file
-  -V N  format version (one of 1, 2, 3, 4) [default: 1]
+  -V N  format version (N: one of 1, 2, 3, 4) [default: 1]
   -p --password  use password
   -k --keyfile   use keyfile
 

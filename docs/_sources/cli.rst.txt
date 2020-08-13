@@ -1,0 +1,30 @@
+CLI usage
+=========
+
+.. code-block:: none
+
+   Usage:
+     gemina encrypt -i INFILE -o OUTFILE [-V N] (-p | -k) [INPUT]
+     gemina decrypt -i INFILE -o OUTFILE (-p | -k) [INPUT]
+     gemina verify  -i INFILE (-p | -k) [INPUT]
+     gemina create  -o OUTFILE [-V N]
+
+   Commands:
+     encrypt  encrypt a file
+     decrypt  decrypt a file
+     verify   verify a file
+     create   create a secret key
+
+   Argument:
+     INPUT    password or keyfile
+              if omitted it will be asked for (password w/o echoing)
+
+   Options:
+     -i INFILE --input   INFILE   input file
+     -o OUTFILE --output OUTFILE  output file
+     -V N  format version (N: one of 1, 2, 3, 4) [default: 1]
+     -p --password  use password
+     -k --keyfile   use keyfile
+
+     -h --help  show this help
+     --version  show the version
