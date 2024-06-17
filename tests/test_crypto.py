@@ -44,7 +44,7 @@ def test_with_password_version(version):
 
 
 @pytest.mark.parametrize('version, enc_key_len, mac_key_len',
-                         list(zip(Version, [16, 16, 24, 32], [16, 32, 32, 32])))
+                         list(zip(Version, [16, 16, 24, 32, 32], [16, 32, 32, 32, 32])))
 def test_with_key_version(version, enc_key_len, mac_key_len):
     key = create_secret_key(version=version)
     assert len(key) == enc_key_len + mac_key_len
