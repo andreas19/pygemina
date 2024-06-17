@@ -18,7 +18,7 @@ Argument:
 Options:
   -i INFILE --input   INFILE   input file
   -o OUTFILE --output OUTFILE  output file
-  -V N  format version (N: one of 1, 2, 3, 4) [default: 1]
+  -V N  format version (N: one of 1, 2, 3, 4, 5) [default: 1]
   -p --password  use password
   -k --keyfile   use keyfile
 
@@ -45,7 +45,9 @@ def _version_conv(n):
         return Version.V3
     if n == 4:
         return Version.V4
-    raise ValueError('version must be one of 1, 2, 3, 4')
+    if n == 5:
+        return Version.V5
+    raise ValueError('version must be one of 1, 2, 3, 4, 5')
 
 
 def _get_input(passwd):

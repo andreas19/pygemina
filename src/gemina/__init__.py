@@ -18,12 +18,11 @@ from enum import Enum
 from importlib.resources import read_text
 
 from cryptography.exceptions import InvalidSignature
-from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.ciphers import Cipher
 from cryptography.hazmat.primitives.ciphers.algorithms import AES
 from cryptography.hazmat.primitives.ciphers.modes import CBC
-from cryptography.hazmat.primitives.hashes import SHA256
 from cryptography.hazmat.primitives.hmac import HMAC
+from cryptography.hazmat.primitives.hashes import SHA256
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.hazmat.primitives.padding import PKCS7
 from salmagundi.utils import check_type
@@ -38,26 +37,25 @@ _MAC_HASH = _KDF_HASH = SHA256()
 _IV_LEN = AES.block_size // 8  # 16 bytes
 _MAC_LEN = _MAC_HASH.digest_size  # 32 bytes
 _SALT_LEN = 16  # bytes
-_ITERATIONS = 100000
 _VERSION_LEN = 1  # byte
-
-_backend = default_backend()
 
 
 class Version(Enum):
     """Version enum."""
 
-    V1 = (b'\x8a', 16, 16)        #: version 1
-    V2 = (b'\x8b', 16, _MAC_LEN)  #: version 2
-    V3 = (b'\x8c', 24, _MAC_LEN)  #: version 3
-    V4 = (b'\x8d', 32, _MAC_LEN)  #: version 4
+    V1 = (b'\x8a', 16, 16, 100000)        #: version 1
+    V2 = (b'\x8b', 16, _MAC_LEN, 100000)  #: version 2
+    V3 = (b'\x8c', 24, _MAC_LEN, 100000)  #: version 3
+    V4 = (b'\x8d', 32, _MAC_LEN, 100000)  #: version 4
+    V5 = (b'\x8e', 32, _MAC_LEN, 600000)  #: version 5
 
-    def __new__(cls, version_byte, enc_key_len, mac_key_len):
+    def __new__(cls, version_byte, enc_key_len, mac_key_len, iterations):
         """Create new Version."""
         obj = object.__new__(cls)
         obj._value_ = version_byte
         obj._enc_key_len = enc_key_len  # bytes
         obj._mac_key_len = mac_key_len  # bytes
+        obj._iterations = iterations
         return obj
 
     def __repr__(self):
@@ -69,7 +67,7 @@ class DecryptError(Exception):
 
 
 def _verify(data, mac_key):
-    h = HMAC(mac_key, _MAC_HASH, _backend)
+    h = HMAC(mac_key, _MAC_HASH)
     h.update(data[:-_MAC_LEN])
     try:
         h.verify(data[-_MAC_LEN:])
@@ -82,10 +80,10 @@ def _encrypt(enc_key, mac_key, salt, data, version):
     iv = os.urandom(_IV_LEN)
     padder = PKCS7(AES.block_size).padder()
     padded_data = padder.update(data) + padder.finalize()
-    encryptor = Cipher(AES(enc_key), CBC(iv), _backend).encryptor()
+    encryptor = Cipher(AES(enc_key), CBC(iv)).encryptor()
     ciphertext = encryptor.update(padded_data) + encryptor.finalize()
     all_data = b''.join((version.value, salt, iv, ciphertext))
-    h = HMAC(mac_key, _MAC_HASH, _backend)
+    h = HMAC(mac_key, _MAC_HASH)
     h.update(all_data)
     hmac = h.finalize()
     return all_data + hmac
@@ -96,7 +94,7 @@ def _decrypt(enc_key, mac_key, salt, data):
         raise DecryptError('signature could not be verified') from None
     pos = _VERSION_LEN + len(salt) + _IV_LEN
     iv = data[_VERSION_LEN + len(salt):pos]
-    decryptor = Cipher(AES(enc_key), CBC(iv), _backend).decryptor()
+    decryptor = Cipher(AES(enc_key), CBC(iv)).decryptor()
     try:
         padded_plaintext = (decryptor.update(data[pos:-_MAC_LEN]) +
                             decryptor.finalize())
@@ -139,8 +137,7 @@ def create_secret_key(*, version=Version.V1):
 def _derive_keys(password, salt, version):
     key = PBKDF2HMAC(_KDF_HASH,
                      length=version._enc_key_len + version._mac_key_len,
-                     salt=salt, iterations=_ITERATIONS,
-                     backend=_backend).derive(password)
+                     salt=salt, iterations=version._iterations).derive(password)
     return key[:version._enc_key_len], key[version._enc_key_len:]
 
 
