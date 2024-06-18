@@ -22,7 +22,7 @@ CLI usage
    Options:
      -i INFILE --input   INFILE   input file
      -o OUTFILE --output OUTFILE  output file
-     -V N  format version (N: one of 1, 2, 3, 4) [default: 1]
+     -V N  format version (N: one of 1, 2, 3, 4, 5) [default: 1]
      -p --password  use password
      -k --keyfile   use keyfile
 
